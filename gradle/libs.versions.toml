@@ -1,6 +1,7 @@
 [versions]
 agp = "8.3.0"
 coil = "2.6.0"
+coilCompose = "2.6.0"
 converterGson = "2.9.0"
 kotlin = "1.9.21"
 coreKtx = "1.12.0"
@@ -66,7 +67,7 @@ chucker = { module = "com.github.chuckerteam.chucker:library", version.ref = "ch
 chucker-no-op = { module = "com.github.chuckerteam.chucker:library-no-op", version.ref = "chuckerVersion" }
 
 # Load image
-coil = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

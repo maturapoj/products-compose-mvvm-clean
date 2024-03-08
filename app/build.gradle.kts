@@ -83,6 +83,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Unit test
     testImplementation(libs.junit)
@@ -123,7 +124,6 @@ dependencies {
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
 
-    implementation(libs.kotlinx.coroutines.android)
-
-    implementation(libs.coil)
+    // Image
+    implementation(libs.coil.compose)
 }
