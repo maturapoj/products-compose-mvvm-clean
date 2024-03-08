@@ -16,7 +16,10 @@ class DepartmentsUseCase(
                     id = department.id.orEmpty(),
                     name = department.name.orEmpty(),
                     imageUrl = department.imageUrl.orEmpty(),
-
+                    departmentId = department.departmentId,
+                    desc = department.desc,
+                    type = department.type,
+                    price = department.price,
                 )
             }
         }

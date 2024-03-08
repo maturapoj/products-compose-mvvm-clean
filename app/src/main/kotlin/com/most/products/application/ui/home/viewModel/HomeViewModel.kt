@@ -15,10 +15,6 @@ class HomeViewModel(
     private val dispatcherProviders: DispatcherProviders,
 ) : ViewModel() {
 
-    init {
-        getDepartments()
-    }
-
     val departmentsItem: MutableStateFlow<String> = MutableStateFlow("")
 
     fun getDepartments() {
@@ -27,7 +23,6 @@ class HomeViewModel(
             .onEach {
                 println("Most onEach department: ${it}")
                 departmentsItem.value = "Most onEach"
-                getProductId("1")
             }
             .catch {
                 println("Most catch : ${it}")
