@@ -62,9 +62,7 @@ class HomeViewModel(
                     )
                 }
             }
-            .onCompletion {
-                setLoading(false)
-            }
+            .onCompletion { setLoading(false) }
             .onEach { products: List<DepartmentDomainModel> ->
                 _uiState.update { currentState ->
                     currentState.copy(

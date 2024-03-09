@@ -33,6 +33,7 @@ fun LoadingContent() {
     }
 }
 
+@Preview
 @Composable
 private fun LoadingContentPreview() {
     LoadingContent()
