@@ -13,7 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.most.products.application.core.composable.ProductDialog
+import com.most.products.application.core.composable.LoadingDialog
+import com.most.products.application.core.composable.ProductDescriptionDialog
 import com.most.products.application.core.extensions.collectWithLifecycle
 import com.most.products.application.core.theme.ApplicationTheme
 import com.most.products.application.core.theme.space8Dp
@@ -40,6 +41,10 @@ fun HomeMainScreen(
     }
 
     val uiState by viewModel.uiState.collectAsState()
+
+    if (uiState.isLoading) {
+        LoadingDialog()
+    }
 
     HomeScreen(
         modifier = Modifier.fillMaxSize(),
@@ -87,7 +92,7 @@ fun HandleEvent(
 
     if (openDialog.value) {
         description.value?.let { desc ->
-            ProductDialog(
+            ProductDescriptionDialog(
                 description = desc,
                 onDismiss = { isShowDialog ->
                     openDialog.value = isShowDialog

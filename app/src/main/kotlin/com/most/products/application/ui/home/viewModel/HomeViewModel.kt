@@ -17,7 +17,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -36,13 +38,15 @@ class HomeViewModel(
     fun getDepartments() {
         departmentUseCase.execute()
             .flowOn(dispatcherProviders.io)
+            .onStart { setLoading(true) }
+            .onCompletion { setLoading(false) }
             .onEach {
                 _uiState.value = HomeUiState(
                     headerContent = it.toHeaderUiModel()
                 )
             }
             .catch {
-                println("Most catch : ${it}")
+                setLoading(false)
             }
             .launchIn(viewModelScope)
     }
@@ -50,15 +54,24 @@ class HomeViewModel(
     fun getProductId(id: String, departmentName: String) {
         departmentUseCase.execute(id)
             .flowOn(dispatcherProviders.io)
+            .onStart {
+                setLoading(true)
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        bodyContent = null,
+                    )
+                }
+            }
+            .onCompletion {
+                setLoading(false)
+            }
             .onEach { products: List<DepartmentDomainModel> ->
                 _uiState.update { currentState ->
                     currentState.copy(
-//                        products = products.toUiModel(),
                         bodyContent = HomeBodyUiModel(
                             departmentName = departmentName,
                             bodyModel = products.toBodyUiModel()
                         ),
-//                        departmentName = departmentName,
                         openDialog = {
                             publishEvent(HomeEvent.ShowDialog(it))
                         }
@@ -66,7 +79,7 @@ class HomeViewModel(
                 }
             }
             .catch {
-                println("Most catch : ${it}")
+                setLoading(false)
             }
             .launchIn(viewModelScope)
     }
@@ -74,6 +87,14 @@ class HomeViewModel(
     private fun publishEvent(event: HomeEvent) {
         viewModelScope.launch {
             eventChannel.send(event)
+        }
+    }
+
+    private fun setLoading(isLoading: Boolean) {
+        _uiState.update { currentState ->
+            currentState.copy(
+                isLoading = isLoading
+            )
         }
     }
 }

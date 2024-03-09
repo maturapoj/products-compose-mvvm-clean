@@ -7,4 +7,5 @@ data class HomeUiState(
     val headerContent: List<HomeHeaderUiModel>? = null,
     val bodyContent: HomeBodyUiModel? = null,
     val openDialog : ((String) -> Unit)? = null,
+    val isLoading: Boolean = false,
 )

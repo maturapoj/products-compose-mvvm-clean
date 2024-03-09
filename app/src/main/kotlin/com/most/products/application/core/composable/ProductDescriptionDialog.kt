@@ -22,13 +22,16 @@ import com.most.products.application.core.theme.rounded16Dp
 import com.most.products.application.core.theme.space16Dp
 
 @Composable
-fun ProductDialog(description: String, onDismiss: (Boolean) -> Unit) {
+fun ProductDescriptionDialog(
+    description: String,
+    onDismiss: (Boolean) -> Unit
+) {
     Dialog(
         onDismissRequest = {
             onDismiss.invoke(false)
         }
     ) {
-        ProductDialogContent(
+        ProductDescriptionDialogContent(
             description = description,
             onDismiss = onDismiss
         )
@@ -36,7 +39,10 @@ fun ProductDialog(description: String, onDismiss: (Boolean) -> Unit) {
 }
 
 @Composable
-fun ProductDialogContent(description: String, onDismiss: (Boolean) -> Unit) {
+fun ProductDescriptionDialogContent(
+    description: String,
+    onDismiss: (Boolean) -> Unit
+) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(rounded16Dp)
@@ -75,5 +81,5 @@ fun ProductDialogContent(description: String, onDismiss: (Boolean) -> Unit) {
 @Preview
 @Composable
 private fun ProductDialogContentPreview() {
-    ProductDialogContent("description") { }
+    ProductDescriptionDialogContent("description") { }
 }
