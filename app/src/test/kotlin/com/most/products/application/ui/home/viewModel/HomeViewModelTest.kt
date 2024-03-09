@@ -1,8 +1,8 @@
 package com.most.products.application.ui.home.viewModel
 
 import com.most.products.application.core.network.model.ErrorException
-import com.most.products.application.domain.model.DepartmentModel
-import com.most.products.application.domain.usecase.DepartmentsUseCase
+import com.most.products.application.domain.model.DepartmentDomainModel
+import com.most.products.application.domain.usecase.DepartmentUseCase
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -22,13 +22,13 @@ import org.junit.Test
 class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
-    private val departmentsUseCase: DepartmentsUseCase = mockk()
+    private val departmentUseCase: DepartmentUseCase = mockk()
     private val dispatcherProviders = TestDispatcherProvider()
 
     @Before
     fun setUp() {
         viewModel = HomeViewModel(
-            departmentsUseCase = departmentsUseCase,
+            departmentUseCase = departmentUseCase,
             dispatcherProviders = dispatcherProviders
         )
         Dispatchers.setMain(dispatcherProviders.io)
@@ -38,10 +38,10 @@ class HomeViewModelTest {
     fun `test getDepartments without id case success should return value`() {
         // arrange
         coEvery {
-            departmentsUseCase.execute()
+            departmentUseCase.execute()
         } returns flowOf(
             listOf(
-                DepartmentModel(
+                DepartmentDomainModel(
                     id = "1",
                     name = "most",
                     imageUrl = "imageUrl"
@@ -53,14 +53,14 @@ class HomeViewModelTest {
         viewModel.getDepartments()
 
         // assert
-        coVerify(exactly = 1) { departmentsUseCase.execute() }
+        coVerify(exactly = 1) { departmentUseCase.execute() }
     }
 
     @Test
     fun `test getDepartments without id case error should thrown exception`() = runTest {
         // arrange
         coEvery {
-            departmentsUseCase.execute()
+            departmentUseCase.execute()
         } returns flow {
             throw ErrorException.ApiErrorException("msg", "400")
         }
@@ -69,7 +69,7 @@ class HomeViewModelTest {
         viewModel.getDepartments()
 
         // assert
-        coVerify(exactly = 1) { departmentsUseCase.execute() }
+        coVerify(exactly = 1) { departmentUseCase.execute() }
     }
 
     @After

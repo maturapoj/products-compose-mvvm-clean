@@ -15,14 +15,14 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class DepartmentsUseCaseTest {
+class DepartmentUseCaseTest {
 
-    private lateinit var useCase: DepartmentsUseCase
+    private lateinit var useCase: DepartmentUseCase
     private val repository: DepartmentsRepository = mockk()
 
     @Before
     fun setUp() {
-        useCase = DepartmentsUseCase(
+        useCase = DepartmentUseCase(
             departmentsRepository = repository
         )
     }

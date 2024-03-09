@@ -1,6 +1,6 @@
 package com.most.products.application.domain.model
 
-data class DepartmentModel(
+data class DepartmentDomainModel(
     val id: String,
     val name: String,
     val imageUrl: String,
