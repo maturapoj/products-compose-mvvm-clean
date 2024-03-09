@@ -1,4 +1,4 @@
-package com.most.products.application.di
+package com.most.products.application.di.network
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector

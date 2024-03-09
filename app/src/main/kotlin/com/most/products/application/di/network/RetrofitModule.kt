@@ -1,4 +1,4 @@
-package com.most.products.application.di
+package com.most.products.application.di.network
 
 import com.most.products.application.BuildConfig
 import okhttp3.OkHttpClient
