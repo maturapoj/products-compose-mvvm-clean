@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.most.products.application.test"
+    android:sharedUserId="com.most.products.application.uid">
+
+</manifest>
