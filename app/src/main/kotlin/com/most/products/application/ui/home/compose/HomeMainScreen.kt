@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
 import com.most.products.application.core.composable.LoadingDialog
 import com.most.products.application.core.composable.ProductDescriptionDialog
 import com.most.products.application.core.extensions.collectWithLifecycle
@@ -31,7 +32,8 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun HomeMainScreen(
-    viewModel: HomeViewModel = koinViewModel(),
+    navHostController: NavHostController,
+    viewModel: HomeViewModel = koinViewModel()
 ) {
 
     HandleEvent(event = viewModel.event)
