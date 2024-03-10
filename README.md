@@ -12,6 +12,7 @@
 - Retrofit
 - OkHttp
 - Coil
+- Chucker
 
 ![Screen_recording_20240310_184154-ezgif com-video-to-gif-converter](https://github.com/maturapoj/products-compose-mvvm-clean/assets/63846568/3609c5fd-1cc7-452a-8d18-2311b364c6e5)
 
