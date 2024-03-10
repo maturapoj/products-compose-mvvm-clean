@@ -14,7 +14,7 @@
 - Coil
 - Chucker
 
-![Screen_recording_20240310_184154-ezgif com-video-to-gif-converter](https://github.com/maturapoj/products-compose-mvvm-clean/assets/63846568/3609c5fd-1cc7-452a-8d18-2311b364c6e5)
+![Screen_recording_20240310_192010-ezgif com-video-to-gif-converter](https://github.com/maturapoj/products-compose-mvvm-clean/assets/63846568/dec1e291-1dc7-4d04-a4fa-5490cacc610e)
 
 ### Project structure
 ![image](https://github.com/maturapoj/products-compose-mvvm-clean/assets/63846568/eb103f18-a085-4ad6-9173-97b3b064402c)
