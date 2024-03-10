@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createComposeRule
 import com.karumi.shot.ScreenshotTest
+import com.most.products.application.core.composable.ProductDescriptionDialogContent
 import com.most.products.application.core.theme.space8Dp
 import com.most.products.application.ui.home.compose.body.HomeBodyContent
 import com.most.products.application.ui.home.compose.header.HomeHeaderContent
@@ -12,8 +13,6 @@ import com.most.products.application.ui.home.model.HomeBodyModel
 import com.most.products.application.ui.home.model.HomeHeaderUiModel
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 class MainScreenshotTest: ScreenshotTest {
 
@@ -87,6 +86,17 @@ class MainScreenshotTest: ScreenshotTest {
                     onOpenDialog = {}
                 )
             }
+        }
+        compareScreenshot(composeRule)
+    }
+
+    @Test
+    fun testProductDescriptionDialogContent() {
+        composeRule.setContent {
+            ProductDescriptionDialogContent(
+                description = "description",
+                onDismiss = {}
+            )
         }
         compareScreenshot(composeRule)
     }
