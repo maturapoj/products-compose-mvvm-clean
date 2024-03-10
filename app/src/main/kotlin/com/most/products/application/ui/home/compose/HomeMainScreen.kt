@@ -1,5 +1,6 @@
 package com.most.products.application.ui.home.compose
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import com.most.products.application.core.composable.LoadingDialog
@@ -33,16 +35,19 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HomeMainScreen(
     navHostController: NavHostController,
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
 ) {
-
+    val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
     HandleEvent(event = viewModel.event)
-
     LaunchedEffect(Unit) {
         viewModel.getDepartments()
     }
-
-    val uiState by viewModel.uiState.collectAsState()
+    LaunchedEffect(uiState.apiError) {
+        if (uiState.apiError != null) {
+            Toast.makeText(context, uiState.apiError, Toast.LENGTH_SHORT).show()
+        }
+    }
 
     if (uiState.isLoading) {
         LoadingDialog()
@@ -61,7 +66,7 @@ fun HomeMainScreen(
 fun HomeScreen(
     modifier: Modifier = Modifier,
     uiState: HomeUiState,
-    onImageClicked: (String, String) -> Unit
+    onImageClicked: (String, String) -> Unit,
 ) {
     val headerContent = uiState.headerContent.orEmpty()
     val bodyContent = uiState.bodyContent?.bodyModel.orEmpty()
@@ -87,7 +92,7 @@ fun HomeScreen(
 
 @Composable
 fun HandleEvent(
-    event: Flow<HomeEvent>
+    event: Flow<HomeEvent>,
 ) {
     val openDialog = rememberSaveable { mutableStateOf(false) }
     val description: MutableState<String?> = remember { mutableStateOf(null) }

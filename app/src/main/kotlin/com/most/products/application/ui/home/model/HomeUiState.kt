@@ -8,4 +8,5 @@ data class HomeUiState(
     val bodyContent: HomeBodyUiModel? = null,
     val openDialog : ((String) -> Unit)? = null,
     val isLoading: Boolean = false,
+    val apiError: String? = null,
 )

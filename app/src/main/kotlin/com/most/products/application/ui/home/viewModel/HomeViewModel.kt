@@ -3,10 +3,11 @@ package com.most.products.application.ui.home.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.most.products.application.core.dispatcher.DispatcherProviders
+import com.most.products.application.core.network.model.ErrorException
 import com.most.products.application.domain.model.DepartmentDomainModel
 import com.most.products.application.domain.usecase.DepartmentUseCase
-import com.most.products.application.ui.home.mapper.toHeaderUiModel
 import com.most.products.application.ui.home.mapper.toBodyUiModel
+import com.most.products.application.ui.home.mapper.toHeaderUiModel
 import com.most.products.application.ui.home.model.HomeBodyUiModel
 import com.most.products.application.ui.home.model.HomeEvent
 import com.most.products.application.ui.home.model.HomeUiState
@@ -38,14 +39,22 @@ class HomeViewModel(
     fun getDepartments() {
         departmentUseCase.execute()
             .flowOn(dispatcherProviders.io)
-            .onStart { setLoading(true) }
+            .onStart {
+                _uiState.update { currentState ->
+                    currentState.copy(
+                        apiError = null
+                    )
+                }
+                setLoading(true)
+            }
             .onCompletion { setLoading(false) }
             .onEach {
                 _uiState.value = HomeUiState(
-                    headerContent = it.toHeaderUiModel()
+                    headerContent = it.toHeaderUiModel(),
                 )
             }
             .catch {
+                showErrorApi(it)
                 setLoading(false)
             }
             .launchIn(viewModelScope)
@@ -59,6 +68,7 @@ class HomeViewModel(
                 _uiState.update { currentState ->
                     currentState.copy(
                         bodyContent = null,
+                        apiError = null
                     )
                 }
             }
@@ -72,11 +82,12 @@ class HomeViewModel(
                         ),
                         openDialog = {
                             publishEvent(HomeEvent.ShowDialog(it))
-                        }
+                        },
                     )
                 }
             }
             .catch {
+                showErrorApi(it)
                 setLoading(false)
             }
             .launchIn(viewModelScope)
@@ -93,6 +104,22 @@ class HomeViewModel(
             currentState.copy(
                 isLoading = isLoading
             )
+        }
+    }
+
+    private fun showErrorApi(error: Throwable) {
+        if (error is ErrorException.ApiErrorException) {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    apiError = "${error.statusCode} ${error.msg}"
+                )
+            }
+        } else {
+            _uiState.update { currentState ->
+                currentState.copy(
+                    apiError = error.message.toString()
+                )
+            }
         }
     }
 }
