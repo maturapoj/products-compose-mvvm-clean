@@ -21,4 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Products Application"
 include(":app")
- 
+include("core:data")
+include(":core:di")
+include(":core:domain")
+include(":core:common")
+include(":feature:home")

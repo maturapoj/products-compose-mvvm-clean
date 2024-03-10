@@ -58,19 +58,19 @@ android {
     productFlavors {
         create("develop") {
             dimension = "environment"
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://659f86b15023b02bfe89c737.mockapi.io/api/v1/\""
-            )
+//            buildConfigField(
+//                "String",
+//                "BASE_URL",
+//                "\"https://659f86b15023b02bfe89c737.mockapi.io/api/v1/\""
+//            )
         }
         create("stage") {
             dimension = "environment"
-            buildConfigField(
-                "String",
-                "BASE_URL",
-                "\"https://659f86b15023b02bfe89c737.mockapi.io/api/v1/\""
-            )
+//            buildConfigField(
+//                "String",
+//                "BASE_URL",
+//                "\"https://659f86b15023b02bfe89c737.mockapi.io/api/v1/\""
+//            )
         }
     }
     shot {
